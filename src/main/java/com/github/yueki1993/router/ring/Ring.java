@@ -1,5 +1,8 @@
 package com.github.yueki1993.router.ring;
 
+
+import com.github.yueki1993.router.VirtualNode;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -12,15 +15,15 @@ public interface Ring {
      * @return node
      */
     @Nonnull
-    String getSuccessor(long hashedValue);
+    VirtualNode getSuccessor(long hashedValue);
 
     /**
      * Put the node (and its hashed value) to the ring.
      */
-    void putNode(String node, long hashedValue);
+    void putNode(VirtualNode node, long hashedValue);
 
     /**
      * Remove the node from the ring.
      */
-    void removeNode(String node, long hashedValue);
+    void removeNode(VirtualNode node, long hashedValue);
 }
