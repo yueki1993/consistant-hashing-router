@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class TreeMapRing implements Ring {
+    public static final String EMPTY_RING = "ring is empty";
     public static final String CONFLICT_HASH = "hash confliceted";
     public static final String NOT_FOUND_NODE = "not found node";
 
@@ -16,8 +17,13 @@ public class TreeMapRing implements Ring {
     }
 
     // Takes O(log n) time.
+    // XXX: maybe not yet thread safe
     @Nonnull
     public String getSuccessor(long hashedValue) {
+        if (ring.isEmpty()) {
+            throw new IllegalStateException(EMPTY_RING);
+        }
+
         Map.Entry<Long, String> e = ring.higherEntry(hashedValue);
         if (e == null) {
             return ring.firstEntry().getValue();

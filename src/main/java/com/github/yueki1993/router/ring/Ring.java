@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 public interface Ring {
     /**
      * Get a successor of the given hashed value in the ring.
+     *
      * @return node
      */
     @Nonnull

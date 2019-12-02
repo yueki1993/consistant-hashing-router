@@ -4,9 +4,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 
 public class TreeMapRingTest {
     private TreeMapRing sut = new TreeMapRing();
