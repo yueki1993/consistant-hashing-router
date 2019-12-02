@@ -9,16 +9,16 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class TreeMapRingTest {
     private TreeMapRing sut = new TreeMapRing();
-    private VirtualNode node1 = new VirtualNode("node1", "node1");
-    private VirtualNode node2 = new VirtualNode("node2", "node2");
-    private VirtualNode node3 = new VirtualNode("node3", "node3");
+    private VirtualNode node1 = new VirtualNode("node1", "node1", 1);
+    private VirtualNode node2 = new VirtualNode("node2", "node2", 10);
+    private VirtualNode node3 = new VirtualNode("node3", "node3", 100);
 
 
     @Before
     public void setUp() throws Exception {
-        sut.putNode(node1, 1);
-        sut.putNode(node2, 10);
-        sut.putNode(node3, 100);
+        sut.putNode(node1);
+        sut.putNode(node2);
+        sut.putNode(node3);
     }
 
     @Test

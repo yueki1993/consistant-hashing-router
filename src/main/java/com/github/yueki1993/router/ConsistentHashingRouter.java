@@ -6,20 +6,19 @@ import com.github.yueki1993.router.ring.Ring;
 import com.github.yueki1993.router.ring.TreeMapRing;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConsistentHashingRouter implements Router.DynamicRouter {
+    private static final String ALREADY_REGISTERED_NODE = "already registered node";
+    private static final String NOT_FOUND_NODE = "not found node";
+
 
     private Hash hashFunction = new MD5Hash();
     private Ring ring = new TreeMapRing();
 
-
-    private Map<String, String> virtualToRealNode = new HashMap<>();
-    private Map<String, Set<String>> RealToVirtualNodes = new HashMap<>();
     private int virtualNodeFactor;
 
+    private Map<String, List<VirtualNode>> nodeToVirtualNodes = new HashMap<>();
 
     public ConsistentHashingRouter(@Nonnull Set<String> initialNodes) {
         this(initialNodes, 100);
@@ -41,19 +40,32 @@ public class ConsistentHashingRouter implements Router.DynamicRouter {
     }
 
     public void addNode(@Nonnull String node) {
+        if (nodeToVirtualNodes.containsKey(node)) {
+            throw new IllegalArgumentException(ALREADY_REGISTERED_NODE);
+        }
+        ArrayList<VirtualNode> vNodeList = new ArrayList<>();
+        nodeToVirtualNodes.put(node, vNodeList);
+
         for (int i = 0; i < virtualNodeFactor; i++) {
             String virtualNodeName = getVirtualNodeName(node, i);
-            ring.putNode(new VirtualNode(virtualNodeName, node), hashFunction.getHash(virtualNodeName));
+            VirtualNode vNode = new VirtualNode(virtualNodeName, node, hashFunction.getHash(virtualNodeName));
+
+            ring.putNode(vNode);
+            vNodeList.add(vNode);
         }
 
     }
 
     public void removeNode(@Nonnull String node) {
-        for (int i = 0; i < virtualNodeFactor; i++) {
-            String virtualNodeName = getVirtualNodeName(node, i);
-            ring.removeNode(new VirtualNode(virtualNodeName, node), // not cool...
-                    hashFunction.getHash(node));
+        List<VirtualNode> vNodes = nodeToVirtualNodes.get(node);
+        if (vNodes == null) {
+            throw new IllegalArgumentException(NOT_FOUND_NODE);
         }
+
+        for (VirtualNode vNode : vNodes) {
+            ring.removeNode(vNode);
+        }
+        nodeToVirtualNodes.remove(node);
     }
 
     private static String getVirtualNodeName(String realNodeName, int i) {

@@ -36,19 +36,19 @@ public class TreeMapRing implements Ring {
     }
 
     // Takes O(log n) time.
-    public void putNode(VirtualNode node, long hashedValue) {
+    public void putNode(VirtualNode node) {
         synchronized (lock) {
-            if (ring.containsKey(hashedValue)) {
+            if (ring.containsKey(node.hashedValue)) {
                 throw new IllegalStateException(CONFLICT_HASH);
             }
-            ring.put(hashedValue, node);
+            ring.put(node.hashedValue, node);
         }
     }
 
     // Takes O(log n) time.
-    public void removeNode(VirtualNode node, long hashedValue) {
+    public void removeNode(VirtualNode node) {
         synchronized (lock) {
-            boolean result = ring.remove(hashedValue, node);
+            boolean result = ring.remove(node.hashedValue, node);
             if (!result) {
                 throw new IllegalStateException(NOT_FOUND_NODE);
             }

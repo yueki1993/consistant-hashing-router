@@ -11,9 +11,14 @@ public class VirtualNode {
     @Nonnull
     public String realNode;
 
-    public VirtualNode(@Nonnull String virtualNodeName, @Nonnull String realNode) {
+    @Nonnull
+    public long hashedValue;
+
+    public VirtualNode(@Nonnull String virtualNodeName, @Nonnull String realNode,
+                       long hashedValue) {
         this.virtualNodeName = virtualNodeName;
         this.realNode = realNode;
+        this.hashedValue = hashedValue;
     }
 
     @Override
@@ -21,12 +26,13 @@ public class VirtualNode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VirtualNode that = (VirtualNode) o;
-        return virtualNodeName.equals(that.virtualNodeName) &&
+        return hashedValue == ((VirtualNode) o).hashedValue &&
+                virtualNodeName.equals(that.virtualNodeName) &&
                 realNode.equals(that.realNode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(virtualNodeName, realNode);
+        return (int)hashedValue;
     }
 }

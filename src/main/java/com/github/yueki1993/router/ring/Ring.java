@@ -20,10 +20,10 @@ public interface Ring {
     /**
      * Put the node (and its hashed value) to the ring.
      */
-    void putNode(VirtualNode node, long hashedValue);
+    void putNode(VirtualNode node);
 
     /**
      * Remove the node from the ring.
      */
-    void removeNode(VirtualNode node, long hashedValue);
+    void removeNode(VirtualNode node);
 }
