@@ -11,7 +11,6 @@ public class VirtualNode {
     @Nonnull
     public String realNode;
 
-    @Nonnull
     public long hashedValue;
 
     public VirtualNode(@Nonnull String virtualNodeName, @Nonnull String realNode,
@@ -26,7 +25,7 @@ public class VirtualNode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VirtualNode that = (VirtualNode) o;
-        return hashedValue == ((VirtualNode) o).hashedValue &&
+        return hashedValue == that.hashedValue &&
                 virtualNodeName.equals(that.virtualNodeName) &&
                 realNode.equals(that.realNode);
     }
