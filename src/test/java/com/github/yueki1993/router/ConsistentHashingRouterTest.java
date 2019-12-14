@@ -27,7 +27,17 @@ public class ConsistentHashingRouterTest {
         for (int i = 0; i < 1000; i++) {
             String target = String.valueOf(i);
             MatcherAssert.assertThat(sut.getRoute(target), Matchers.isIn(nodes));
-            String route = sut.getRoute(target);
+        }
+    }
+
+    @Test
+    public void removedNodeShouldNotBeInNodes() {
+        String removedNode = nodes.iterator().next();
+        sut.removeNode(removedNode);
+
+        for (int i = 0; i < 1000; i++) {
+            String target = String.valueOf(i);
+            MatcherAssert.assertThat(sut.getRoute(target), Matchers.not(removedNode));
         }
     }
 }

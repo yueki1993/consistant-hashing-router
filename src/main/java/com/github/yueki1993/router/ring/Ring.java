@@ -13,6 +13,7 @@ public interface Ring {
      * Get a successor of the given hashed value in the ring.
      *
      * @return node
+     * @throws {@link IllegalStateException} if the ring is empty.
      */
     @Nonnull
     VirtualNode getSuccessor(long hashedValue);
