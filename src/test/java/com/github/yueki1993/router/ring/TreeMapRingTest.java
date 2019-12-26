@@ -1,6 +1,5 @@
 package com.github.yueki1993.router.ring;
 
-import com.github.yueki1993.router.VirtualNode;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;

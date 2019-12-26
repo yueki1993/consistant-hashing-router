@@ -4,6 +4,7 @@ import com.github.yueki1993.router.hash.Hash;
 import com.github.yueki1993.router.hash.MD5Hash;
 import com.github.yueki1993.router.ring.Ring;
 import com.github.yueki1993.router.ring.TreeMapRing;
+import com.github.yueki1993.router.ring.VirtualNode;
 
 import javax.annotation.Nonnull;
 import java.util.*;

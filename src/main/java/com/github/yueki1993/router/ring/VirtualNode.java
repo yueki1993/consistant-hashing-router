@@ -1,8 +1,7 @@
-package com.github.yueki1993.router;
+package com.github.yueki1993.router.ring;
 
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 public class VirtualNode {
     @Nonnull

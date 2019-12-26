@@ -1,8 +1,6 @@
 package com.github.yueki1993.router.ring;
 
 
-import com.github.yueki1993.router.VirtualNode;
-
 import javax.annotation.Nonnull;
 
 /**
